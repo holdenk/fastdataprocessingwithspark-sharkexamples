@@ -10,6 +10,16 @@ libraryDependencies ++= Seq(
     "edu.berkeley.cs.amplab" % "shark_2.9.3" % "0.7.0"
 )
 
+// This is based on Shark's project build file. If the build stops working on
+// upgrading Shark versions this logic may also need to be updated.
+unmanagedJars in Compile <++= baseDirectory map { base =>
+      val hiveFile = file(System.getenv("HIVE_HOME")) / "lib"
+      val baseDirectories = (base / "lib") +++ (hiveFile)
+      val customJars = (baseDirectories ** "*.jar")
+      // Hive uses an old version of guava that doesn't have what we want.
+      customJars.classpath.filter(!_.toString.contains("guava"))
+    }
+
 resolvers ++= Seq(
    "JBoss Repository" at "http://repository.jboss.org/nexus/content/repositories/releases/",
    "Spray Repository" at "http://repo.spray.cc/",

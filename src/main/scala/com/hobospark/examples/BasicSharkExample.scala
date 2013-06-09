@@ -15,7 +15,7 @@ object BasicSharkExample {
     val rdd = sc.sql2rdd("SELECT src.key, src.value FROM src WHERE src.key < 100")
     rdd.cache()
     println("Found "+rdd.count()+" num rows")
-    val normalRDD = rdd.map(x => (x.getInt("src.key"), x.getString("src.value")))
-    println("Formatted as "+normalRDD.collect())
+    val normalRDD = rdd.map(x => (x.getInt("key"), x.getString("value")))
+    println("Formatted as "+normalRDD.collect().mkString(","))
   }
 }
