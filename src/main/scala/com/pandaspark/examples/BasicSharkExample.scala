@@ -1,6 +1,6 @@
 // Basic Shark example in Scala
 
-package com.hobospark.examples
+package com.pandaspark.examples
 
 import shark._
 import spark.SparkContext._
